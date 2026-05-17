@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  transpilePackages: ['pixi.js', 'pixi-filters'],
+  serverExternalPackages: ['@dicebear/core', '@dicebear/bottts'],
+}
 
-export default nextConfig;
+export default nextConfig

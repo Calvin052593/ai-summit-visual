@@ -1,0 +1,122 @@
+<!-- REPLACE: Swap with traced venue SVG/PNG when final art is ready -->
+<!-- Floor bounds for robot waypoints: x=150 y=450 width=1620 height=420 -->
+<!-- Update WaypointSystem.ts FLOOR_BOUNDS if you change this layout -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 900" width="1920" height="900">
+<defs>
+  <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#FDFBF7"/><stop offset="100%" stop-color="#DDD8D0"/>
+  </linearGradient>
+  <linearGradient id="wg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#D0C4AA"/><stop offset="100%" stop-color="#A89878"/>
+  </linearGradient>
+  <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#8A7860"/><stop offset="100%" stop-color="#6A5840"/>
+  </linearGradient>
+  <linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#EDE7DB"/><stop offset="100%" stop-color="#E2DDD4"/>
+  </linearGradient>
+  <linearGradient id="mg" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#F5F2EE"/><stop offset="100%" stop-color="#FAFAF8"/>
+  </linearGradient>
+  <radialGradient id="ag" cx="50%" cy="100%" r="80%">
+    <stop offset="0%"   stop-color="#FFD870" stop-opacity="0.9"/>
+    <stop offset="60%"  stop-color="#FFC84A" stop-opacity="0.4"/>
+    <stop offset="100%" stop-color="#FFC84A" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+
+<!-- BASE -->
+<rect width="1920" height="900" fill="#EDE8E0"/>
+
+<!-- ===== CEILING — draped cream fabric ===== -->
+<rect x="0" y="0" width="1920" height="245" fill="url(#cg)"/>
+<path d="M0,28 Q96,10 192,30 Q288,50 384,24 Q480,0 576,24 Q672,48 768,24 Q864,0 960,24 Q1056,48 1152,24 Q1248,0 1344,24 Q1440,48 1536,24 Q1632,0 1728,24 Q1824,48 1920,24 L1920,0 L0,0Z" fill="#F5F1EB" opacity="0.7"/>
+<path d="M0,62 Q80,44 160,66 Q240,88 320,60 Q400,34 480,60 Q560,86 640,60 Q720,34 800,60 Q880,86 960,60 Q1040,34 1120,60 Q1200,86 1280,60 Q1360,34 1440,60 Q1520,86 1600,60 Q1680,34 1760,60 Q1840,86 1920,60 L1920,0 L0,0Z" fill="#EDE9E2" opacity="0.65"/>
+<path d="M0,100 Q70,80 140,104 Q210,128 280,100 Q350,72 420,100 Q490,128 560,100 Q630,72 700,100 Q770,128 840,100 Q910,72 980,100 Q1050,128 1120,100 Q1190,72 1260,100 Q1330,128 1400,100 Q1470,72 1540,100 Q1610,128 1680,100 Q1750,72 1820,100 Q1870,116 1920,104 L1920,0 L0,0Z" fill="#E4E0D8" opacity="0.65"/>
+<path d="M0,142 Q60,122 120,146 Q180,170 240,142 Q300,114 360,142 Q420,170 480,142 Q540,114 600,142 Q660,170 720,142 Q780,114 840,142 Q900,170 960,142 Q1020,114 1080,142 Q1140,170 1200,142 Q1260,114 1320,142 Q1380,170 1440,142 Q1500,114 1560,142 Q1620,170 1680,142 Q1740,114 1800,142 Q1860,170 1920,148 L1920,0 L0,0Z" fill="#D8D4CC" opacity="0.65"/>
+<path d="M0,184 Q52,164 104,188 Q156,212 208,184 Q260,156 312,184 Q364,212 416,184 Q468,156 520,184 Q572,212 624,184 Q676,156 728,184 Q780,212 832,184 Q884,156 936,184 Q988,212 1040,184 Q1092,156 1144,184 Q1196,212 1248,184 Q1300,156 1352,184 Q1404,212 1456,184 Q1508,156 1560,184 Q1612,212 1664,184 Q1716,156 1768,184 Q1820,212 1872,184 Q1900,172 1920,184 L1920,0 L0,0Z" fill="#CCCAC0" opacity="0.7"/>
+<rect x="0" y="224" width="1920" height="18" fill="#B8B0A2"/>
+<rect x="0" y="240" width="1920" height="6"  fill="#A8A098" opacity="0.5"/>
+
+<!-- Ceiling lights row 1 -->
+<circle cx="240"  cy="80"  r="20" fill="#FFFDE8" opacity="0.5"/><circle cx="240"  cy="80"  r="8" fill="#FFFFFF"/>
+<circle cx="560"  cy="62"  r="20" fill="#FFFDE8" opacity="0.5"/><circle cx="560"  cy="62"  r="8" fill="#FFFFFF"/>
+<circle cx="880"  cy="55"  r="20" fill="#FFFDE8" opacity="0.5"/><circle cx="880"  cy="55"  r="8" fill="#FFFFFF"/>
+<circle cx="1040" cy="55"  r="20" fill="#FFFDE8" opacity="0.5"/><circle cx="1040" cy="55"  r="8" fill="#FFFFFF"/>
+<circle cx="1360" cy="62"  r="20" fill="#FFFDE8" opacity="0.5"/><circle cx="1360" cy="62"  r="8" fill="#FFFFFF"/>
+<circle cx="1680" cy="80"  r="20" fill="#FFFDE8" opacity="0.5"/><circle cx="1680" cy="80"  r="8" fill="#FFFFFF"/>
+<!-- Ceiling lights row 2 -->
+<circle cx="380"  cy="148" r="16" fill="#FFFDE8" opacity="0.4"/><circle cx="380"  cy="148" r="7" fill="#FFFFFF"/>
+<circle cx="720"  cy="136" r="16" fill="#FFFDE8" opacity="0.4"/><circle cx="720"  cy="136" r="7" fill="#FFFFFF"/>
+<circle cx="960"  cy="132" r="16" fill="#FFFDE8" opacity="0.4"/><circle cx="960"  cy="132" r="7" fill="#FFFFFF"/>
+<circle cx="1200" cy="136" r="16" fill="#FFFDE8" opacity="0.4"/><circle cx="1200" cy="136" r="7" fill="#FFFFFF"/>
+<circle cx="1540" cy="148" r="16" fill="#FFFDE8" opacity="0.4"/><circle cx="1540" cy="148" r="7" fill="#FFFFFF"/>
+
+<!-- ===== SIDE WALLS ===== -->
+<rect x="0"    y="245" width="130" height="655" fill="url(#wg)"/>
+<rect x="1790" y="245" width="130" height="655" fill="url(#wg)"/>
+<rect x="128"  y="245" width="12"  height="655" fill="#907860" opacity="0.35"/>
+<rect x="1780" y="245" width="12"  height="655" fill="#907860" opacity="0.35"/>
+
+<!-- ===== BACK WALL ===== -->
+<rect x="130" y="245" width="1660" height="260" fill="#C4B498"/>
+<rect x="130" y="245" width="1660" height="80"  fill="#D8C8AA" opacity="0.4"/>
+
+<!-- ===== ARCHED PANELS — left ===== -->
+<rect x="160" y="268" width="148" height="218" rx="74" fill="#A89070"/>
+<rect x="170" y="278" width="128" height="198" rx="64" fill="url(#ag)"/>
+<rect x="228" y="272" width="5"   height="12"  rx="2"  fill="#D4A830" opacity="0.9"/>
+<rect x="360" y="268" width="148" height="218" rx="74" fill="#A89070"/>
+<rect x="370" y="278" width="128" height="198" rx="64" fill="url(#ag)"/>
+<rect x="428" y="272" width="5"   height="12"  rx="2"  fill="#D4A830" opacity="0.9"/>
+<rect x="560" y="268" width="148" height="218" rx="74" fill="#A89070"/>
+<rect x="570" y="278" width="128" height="198" rx="64" fill="url(#ag)"/>
+<rect x="628" y="272" width="5"   height="12"  rx="2"  fill="#D4A830" opacity="0.9"/>
+
+<!-- ===== STAGE ===== -->
+<rect x="740" y="248" width="440" height="255" fill="url(#sg)"/>
+<ellipse cx="960" cy="248" rx="300" ry="90" fill="#FFD870" opacity="0.18"/>
+<rect x="752" y="260" width="200" height="235" fill="#7A6A50" opacity="0.7"/>
+<rect x="968" y="260" width="200" height="235" fill="#7A6A50" opacity="0.7"/>
+<rect x="756" y="255" width="368" height="10"  fill="#504030"/>
+<circle cx="840"  cy="255" r="5" fill="#FFDD70" opacity="0.9"/>
+<circle cx="960"  cy="255" r="5" fill="#FFDD70" opacity="0.9"/>
+<circle cx="1080" cy="255" r="5" fill="#FFDD70" opacity="0.9"/>
+<path d="M840,255 L770,505 L910,505Z"    fill="#FFF5CC" opacity="0.05"/>
+<path d="M960,255 L880,505 L1040,505Z"   fill="#FFF5CC" opacity="0.07"/>
+<path d="M1080,255 L1000,505 L1120,505Z" fill="#FFF5CC" opacity="0.05"/>
+<rect x="910" y="440" width="100" height="60" rx="4" fill="#5A4A32"/>
+<rect x="920" y="435" width="80"  height="12" rx="3" fill="#7A6A48"/>
+
+<!-- ===== ARCHED PANELS — right ===== -->
+<rect x="1212" y="268" width="148" height="218" rx="74" fill="#A89070"/>
+<rect x="1222" y="278" width="128" height="198" rx="64" fill="url(#ag)"/>
+<rect x="1280" y="272" width="5"   height="12"  rx="2"  fill="#D4A830" opacity="0.9"/>
+<rect x="1412" y="268" width="148" height="218" rx="74" fill="#A89070"/>
+<rect x="1422" y="278" width="128" height="198" rx="64" fill="url(#ag)"/>
+<rect x="1480" y="272" width="5"   height="12"  rx="2"  fill="#D4A830" opacity="0.9"/>
+<rect x="1612" y="268" width="148" height="218" rx="74" fill="#A89070"/>
+<rect x="1622" y="278" width="128" height="198" rx="64" fill="url(#ag)"/>
+<rect x="1680" y="272" width="5"   height="12"  rx="2"  fill="#D4A830" opacity="0.9"/>
+
+<!-- ===== FLOOR ===== -->
+<rect x="130" y="460" width="1660" height="440" fill="url(#fg)"/>
+<rect x="130" y="455" width="1660" height="12"  fill="#B0A894" opacity="0.4"/>
+<rect x="130" y="462" width="1020" height="438" fill="#EBE4D8" opacity="0.5"/>
+<rect x="1100" y="455" width="690" height="445" fill="url(#mg)"/>
+<path d="M1140,470 Q1200,530 1160,600 Q1130,660 1190,730 Q1240,790 1200,860" stroke="#DDD8D0" stroke-width="1.5" fill="none" opacity="0.6"/>
+<path d="M1300,462 Q1360,540 1320,620 Q1290,690 1360,760 Q1410,820 1380,880" stroke="#DDD8D0" stroke-width="1"   fill="none" opacity="0.5"/>
+<path d="M1480,468 Q1520,540 1500,620 Q1480,700 1540,770 Q1580,830 1550,890" stroke="#DDD8D0" stroke-width="1.5" fill="none" opacity="0.6"/>
+<path d="M1640,475 Q1680,540 1660,620 Q1640,700 1700,770" stroke="#DDD8D0" stroke-width="1" fill="none" opacity="0.4"/>
+<line x1="1100" y1="580" x2="1790" y2="580" stroke="#D8D4CE" stroke-width="0.6" opacity="0.5"/>
+<line x1="1100" y1="700" x2="1790" y2="700" stroke="#D8D4CE" stroke-width="0.6" opacity="0.5"/>
+<line x1="1100" y1="820" x2="1790" y2="820" stroke="#D8D4CE" stroke-width="0.6" opacity="0.5"/>
+<line x1="1230" y1="455" x2="1230" y2="900" stroke="#D8D4CE" stroke-width="0.6" opacity="0.5"/>
+<line x1="1370" y1="455" x2="1370" y2="900" stroke="#D8D4CE" stroke-width="0.6" opacity="0.5"/>
+<line x1="1510" y1="455" x2="1510" y2="900" stroke="#D8D4CE" stroke-width="0.6" opacity="0.5"/>
+<line x1="1650" y1="455" x2="1650" y2="900" stroke="#D8D4CE" stroke-width="0.6" opacity="0.5"/>
+
+<!-- ===== AMBIENT GLOW ===== -->
+<ellipse cx="960" cy="460" rx="380" ry="140" fill="#FFD870" opacity="0.06"/>
+<rect x="130" y="450" width="1660" height="450" fill="#FFE8A0" opacity="0.025"/>
+</svg>
