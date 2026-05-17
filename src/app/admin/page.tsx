@@ -3,6 +3,8 @@
 export const dynamic = 'force-dynamic'
 
 import { useEffect, useState, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import { StatsCards } from '@/components/admin/StatsCards'
 import { CheckInChart } from '@/components/admin/CheckInChart'
 import { CapacityBar } from '@/components/admin/CapacityBar'
@@ -17,6 +19,29 @@ const DEFAULT_EVENT_ID = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890'
 const POLL_MS = 30_000
 
 export default function AdminPage() {
+  const router = useRouter()
+  const [authChecked, setAuthChecked] = useState(false)
+  const [userEmail, setUserEmail] = useState<string | null>(null)
+
+  // Auth guard — redirect to login if no session
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        router.replace('/admin/login')
+      } else {
+        setUserEmail(session.user.email ?? null)
+        setAuthChecked(true)
+      }
+    })
+  }, [router])
+
+  const handleSignOut = async () => {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.replace('/admin/login')
+  }
+
   const [selectedEventId, setSelectedEventId] = useState<string>(() => {
     if (typeof window === 'undefined') return DEFAULT_EVENT_ID
     return localStorage.getItem('admin_selected_event') ?? DEFAULT_EVENT_ID
@@ -67,6 +92,15 @@ export default function AdminPage() {
 
   const total = realCount + dummyCount
 
+  // Show blank while checking auth (prevents flash of content)
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen bg-brand-black flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-brand-orange border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-brand-black text-white p-8">
       <div className="max-w-6xl mx-auto space-y-6">
@@ -89,6 +123,15 @@ export default function AdminPage() {
               Refresh
             </button>
             <ExportButton />
+            <div className="flex items-center gap-2 pl-3 border-l border-zinc-800">
+              <span className="text-zinc-500 text-xs">{userEmail}</span>
+              <button
+                onClick={handleSignOut}
+                className="px-3 py-2 rounded-xl bg-zinc-800 text-zinc-400 hover:bg-red-900/40 hover:text-red-400 text-sm transition-colors"
+              >
+                Sign out
+              </button>
+            </div>
           </div>
         </div>
 
