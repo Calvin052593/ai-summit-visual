@@ -4,7 +4,7 @@ import { ClusterDot } from './ClusterDot'
 import { WaypointSystem } from './WaypointSystem'
 import { NoiseMotion } from './NoiseMotion'
 import { EntranceEffect } from './EntranceEffect'
-import { getCharacterCanvas } from '@/lib/avatar'
+import { getAvatarCanvas } from '@/lib/avatar'
 import { BRAND } from '@/lib/brand'
 import type { Attendee } from '@/types/attendee'
 
@@ -96,7 +96,7 @@ export class RobotManager {
   }
 
   private async spawnRobot(attendee: Attendee, withEntrance: boolean) {
-    const texture = await this.loadTexture(attendee.gender ?? (Math.random() < 0.5 ? 'male' : 'female'))
+    const texture = await this.loadTexture(attendee.avatar_seed)
     const spawnPos = this.waypoints.randomSpawnPoint()
     const targetPos = this.waypoints.randomWaypoint()
     const color = attendee.avatar_color ?? BRAND.orange
@@ -132,9 +132,9 @@ export class RobotManager {
     this.overflowCount = this.dots.size
   }
 
-  private async loadTexture(gender: 'male' | 'female'): Promise<Texture> {
+  private async loadTexture(seed: string): Promise<Texture> {
     try {
-      const canvas = await getCharacterCanvas(gender, 40, 80)
+      const canvas = await getAvatarCanvas(seed, 64)
       return Texture.from(canvas)
     } catch {
       return Texture.WHITE
