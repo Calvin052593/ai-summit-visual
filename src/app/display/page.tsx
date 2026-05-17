@@ -55,23 +55,23 @@ function DisplayContent() {
     // 2. Fetch initial attendees for this event
     const supabase = createClient()
     const timeout = setTimeout(() => setLoaded(true), 6000) // safety net
-    Promise.resolve(
-      supabase
-        .from('attendees')
-        .select('*')
-        .eq('is_active', true)
-        .eq('event_id', eventId)
-        .order('checked_in_at', { ascending: true })
-    ).then(({ data, error }) => {
-      if (error) console.error('Attendees fetch error:', error)
-      setInitialAttendees((data as Attendee[]) ?? [])
-      setLoaded(true)
-      clearTimeout(timeout)
-    }).catch((err) => {
-      console.error('Attendees fetch failed:', err)
-      setLoaded(true)
-      clearTimeout(timeout)
-    })
+    ;(async () => {
+      try {
+        const { data, error } = await supabase
+          .from('attendees')
+          .select('*')
+          .eq('is_active', true)
+          .eq('event_id', eventId)
+          .order('checked_in_at', { ascending: true })
+        if (error) console.error('Attendees fetch error:', error)
+        setInitialAttendees((data as Attendee[]) ?? [])
+      } catch (err) {
+        console.error('Attendees fetch failed:', err)
+      } finally {
+        setLoaded(true)
+        clearTimeout(timeout)
+      }
+    })()
 
     return () => clearTimeout(timeout)
   }, [eventId])
