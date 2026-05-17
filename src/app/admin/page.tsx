@@ -108,7 +108,7 @@ export default function AdminPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="font-heading text-3xl font-bold text-white">Admin Dashboard</h1>
-            <p className="text-zinc-500 text-sm mt-1">Gen AI Summit Asia 2026</p>
+            <p className="text-zinc-500 text-sm mt-1">AI Summit</p>
           </div>
           <div className="flex items-center gap-3">
             {lastUpdated && (

@@ -21,7 +21,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Gen AI Summit Asia 2026',
+  title: 'AI Summit',
   description: "You're not Gen X, not Gen Y — You're Gen AI",
 }
 

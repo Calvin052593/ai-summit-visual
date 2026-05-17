@@ -1,5 +1,5 @@
 <!-- REPLACE: This is a placeholder text logo.
-     Replace with the official Gen AI Summit Asia 2026 logo SVG or PNG.
+     Replace with the official AI Summit logo SVG or PNG.
      Recommended: SVG format, max height 60px for the top bar display.
      Reference in: src/components/display/TopBar.tsx
      The <img> tag or Next.js <Image> component at that location loads this file.
@@ -8,6 +8,6 @@
   <rect width="300" height="60" fill="#0A0A0A" rx="8"/>
   <rect x="8" y="8" width="44" height="44" fill="#FF4F00" rx="6"/>
   <text x="30" y="38" font-size="28" text-anchor="middle" font-family="sans-serif">🤖</text>
-  <text x="62" y="22" font-size="14" font-family="sans-serif" font-weight="700" fill="#FAFAFA">Gen AI Summit Asia</text>
+  <text x="62" y="22" font-size="14" font-family="sans-serif" font-weight="700" fill="#FAFAFA">AI Summit</text>
   <text x="62" y="42" font-size="18" font-family="monospace" font-weight="900" fill="#FF4F00">2026</text>
 </svg>

@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Check In · Gen AI Summit Asia 2026',
-  description: 'Scan to check in to Gen AI Summit Asia 2026',
+  title: 'Check In · AI Summit',
+  description: 'Scan to check in to AI Summit',
 }
 
 export const viewport: Viewport = {

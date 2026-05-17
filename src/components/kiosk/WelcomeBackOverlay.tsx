@@ -66,7 +66,7 @@ export function WelcomeBackOverlay({ attendee, onDone }: WelcomeBackOverlayProps
             <h1 className="font-heading text-5xl font-bold text-brand-white mb-3">
               Welcome back, {attendee.first_name}!
             </h1>
-            <p className="text-zinc-400 text-xl">Good to see you again at Gen AI Summit Asia 2026</p>
+            <p className="text-zinc-400 text-xl">Good to see you again at AI Summit</p>
           </motion.div>
 
           <motion.p

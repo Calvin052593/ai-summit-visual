@@ -22,15 +22,15 @@ export function TopBar({ count, capacity, eventName }: TopBarProps) {
         <div className="flex items-center gap-3">
           <div
             className="w-10 h-10 rounded-lg bg-brand-orange flex items-center justify-center text-xl font-bold text-white"
-            aria-label="Gen AI Summit Asia 2026 logo"
+            aria-label="AI Summit logo"
           >
             🤖
           </div>
           <div>
             <div className="font-heading font-bold text-brand-white text-lg leading-tight">
-              {eventName ?? 'Gen AI Summit Asia'}
+              {eventName ?? 'AI Summit'}
             </div>
-            <div className="font-mono text-brand-orange text-xs tracking-widest">GEN AI SUMMIT ASIA 2026</div>
+            <div className="font-mono text-brand-orange text-xs tracking-widest">AI SUMMIT</div>
           </div>
         </div>
       </div>

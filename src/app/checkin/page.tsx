@@ -108,7 +108,7 @@ function MobileCheckInForm() {
         <div className="w-full max-w-sm mb-8 text-center">
           <div className="inline-flex items-center gap-2 bg-[#FF4F00] rounded-xl px-4 py-2 mb-4">
             <span className="text-xl">🤖</span>
-            <span className="font-bold text-white text-sm tracking-wide">Gen AI Summit Asia 2026</span>
+            <span className="font-bold text-white text-sm tracking-wide">AI Summit</span>
           </div>
           <h1 className="text-white text-3xl font-bold mb-1">Check In</h1>
           <p className="text-zinc-500 text-sm">{"You're Gen AI"}</p>
@@ -140,7 +140,7 @@ function MobileCheckInForm() {
               <p className="text-zinc-400 text-sm">
                 {success.type === 'welcome_back'
                   ? 'Your check-in has been updated.'
-                  : 'You are now checked in. Welcome to Gen AI Summit Asia!'}
+                  : 'You are now checked in. Welcome to AI Summit!'}
               </p>
               <div className="bg-zinc-900 rounded-2xl p-4 text-left space-y-2">
                 <div className="flex justify-between text-sm">

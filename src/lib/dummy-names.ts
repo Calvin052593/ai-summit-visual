@@ -1,4 +1,4 @@
-// ~80 first names reflecting the "47 countries" attendee mix of Gen AI Summit Asia 2026
+// ~80 first names reflecting the "47 countries" attendee mix of AI Summit
 // Covers Malay, Chinese-Malaysian, Indian-Malaysian, Indonesian, Thai, Filipino, Vietnamese, Japanese, broader Asian
 
 export const DUMMY_FIRST_NAMES = [

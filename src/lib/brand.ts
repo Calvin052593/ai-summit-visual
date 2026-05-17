@@ -26,7 +26,7 @@ export function randomAvatarColor(): string {
 }
 
 export const EVENT = {
-  name: 'Gen AI Summit Asia 2026',
+  name: 'AI Summit',
   tagline: "You're not Gen X, not Gen Y — You're Gen AI",
   capacity: 3000,
   day1: 'Sat Aug 8, 2026',

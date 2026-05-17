@@ -37,7 +37,7 @@ export default function AdminLoginPage() {
         {/* Header */}
         <div className="text-center">
           <div className="inline-block bg-brand-orange rounded-xl px-4 py-2 mb-4">
-            <span className="font-bold text-white text-sm tracking-wide">Gen AI Summit Asia 2026</span>
+            <span className="font-bold text-white text-sm tracking-wide">AI Summit</span>
           </div>
           <h1 className="text-white text-2xl font-bold">Admin Login</h1>
           <p className="text-zinc-500 text-sm mt-1">Sign in to access the dashboard</p>

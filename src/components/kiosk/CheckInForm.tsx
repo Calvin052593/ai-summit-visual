@@ -140,7 +140,7 @@ export function CheckInForm() {
           {/* REPLACE: drop final logo PNG here */}
           <div className="inline-block bg-brand-orange rounded-xl px-5 py-2 mb-4">
             <span className="font-heading font-bold text-white text-lg tracking-wide">
-              Gen AI Summit Asia 2026
+              AI Summit
             </span>
           </div>
           <h1 className="font-heading text-4xl font-bold text-white">Check In</h1>
