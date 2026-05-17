@@ -75,3 +75,40 @@ export async function getAvatarCanvas(seed: string, size = 64): Promise<HTMLCanv
   canvasCache.set(seed, canvas)
   return canvas
 }
+
+// ── Character sprites (male / female) ──────────────────────────────────────
+const charCanvasCache = new Map<string, HTMLCanvasElement>()
+
+export async function getCharacterCanvas(
+  gender: 'male' | 'female',
+  width = 40,
+  height = 80
+): Promise<HTMLCanvasElement> {
+  const key = `${gender}-${width}x${height}`
+  if (charCanvasCache.has(key)) return charCanvasCache.get(key)!
+
+  const url = gender === 'female' ? '/images/character-female.svg' : '/images/character-male.svg'
+  const response = await fetch(url)
+  const svgText = await response.text()
+  const blob = new Blob([svgText], { type: 'image/svg+xml' })
+  const blobUrl = URL.createObjectURL(blob)
+
+  return new Promise((resolve, reject) => {
+    const img = new Image(width * 2, height * 2)
+    img.onload = () => {
+      URL.revokeObjectURL(blobUrl)
+      const canvas = document.createElement('canvas')
+      canvas.width = width * 2
+      canvas.height = height * 2
+      const ctx = canvas.getContext('2d')!
+      ctx.drawImage(img, 0, 0, width * 2, height * 2)
+      charCanvasCache.set(key, canvas)
+      resolve(canvas)
+    }
+    img.onerror = () => {
+      URL.revokeObjectURL(blobUrl)
+      reject(new Error(`Failed to load character SVG: ${url}`))
+    }
+    img.src = blobUrl
+  })
+}

@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  const { first_name, last_name, email, phone, country_code, display_consent, event_id } = body as CheckInPayload & { event_id?: string }
+  const { first_name, last_name, email, phone, country_code, display_consent, gender, event_id } = body as CheckInPayload & { event_id?: string }
 
   if (!first_name?.trim() || !email?.trim() || !phone?.trim()) {
     return NextResponse.json({ error: 'first_name, email, and phone are required' }, { status: 400 })
@@ -60,6 +60,7 @@ export async function POST(req: Request) {
       country_code: country_code ?? '+60',
       avatar_seed,
       avatar_color,
+      gender: gender ?? null,
       is_dummy: false,
       display_consent: display_consent ?? false,
       is_active: true,

@@ -23,6 +23,7 @@ function MobileCheckInForm() {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [countryCode, setCountryCode] = useState('+60')
+  const [gender, setGender] = useState<'male' | 'female' | ''>('')
   const [consent, setConsent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -35,13 +36,14 @@ function MobileCheckInForm() {
     if (!firstName.trim()) e.firstName = 'First name required'
     if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) e.email = 'Valid email required'
     if (!phone.trim()) e.phone = 'Phone number required'
+    if (!gender) e.gender = 'Please select your gender'
     setErrors(e)
     return Object.keys(e).length === 0
   }
 
   const reset = useCallback(() => {
     setFirstName(''); setLastName(''); setEmail(''); setPhone('')
-    setCountryCode('+60'); setConsent(false); setErrors({}); setSuccess(null)
+    setCountryCode('+60'); setGender(''); setConsent(false); setErrors({}); setSuccess(null)
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -55,6 +57,7 @@ function MobileCheckInForm() {
       email: email.trim(),
       phone: phone.trim(),
       country_code: countryCode,
+      gender: gender || undefined,
       display_consent: consent,
       event_id: eventId,
     }
@@ -79,6 +82,7 @@ function MobileCheckInForm() {
         checked_in_at: new Date().toISOString(),
         avatar_seed: `bot-offline-${Math.random().toString(36).slice(2)}`,
         avatar_color: '#FF4F00',
+        gender: (gender as 'male' | 'female') || null,
         is_dummy: false,
         display_consent: consent,
         is_active: true,
@@ -236,6 +240,24 @@ function MobileCheckInForm() {
                   />
                 </div>
                 {errors.phone && <p className="mt-1 text-red-400 text-xs">{errors.phone}</p>}
+              </div>
+
+              {/* Gender */}
+              <div>
+                <select
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value as 'male' | 'female' | '')}
+                  className={cn(
+                    'w-full px-4 py-3 rounded-xl bg-zinc-900 border-2 text-white outline-none focus:border-[#FF4F00] transition-colors text-base appearance-none',
+                    errors.gender ? 'border-red-500' : gender ? 'border-zinc-800' : 'border-zinc-800',
+                    !gender && 'text-zinc-600'
+                  )}
+                >
+                  <option value="" disabled>Select Gender *</option>
+                  <option value="male">♂  Male</option>
+                  <option value="female">♀  Female</option>
+                </select>
+                {errors.gender && <p className="mt-1 text-red-400 text-xs">{errors.gender}</p>}
               </div>
 
               {/* Consent */}

@@ -30,6 +30,7 @@ export function CheckInForm() {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [countryCode, setCountryCode] = useState('+60')
+  const [gender, setGender] = useState<'male' | 'female' | ''>('')
   const [consent, setConsent] = useState(false)
   const [showNumPad, setShowNumPad] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -43,6 +44,7 @@ export function CheckInForm() {
     if (!firstName.trim()) e.firstName = 'First name is required'
     if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) e.email = 'Valid email is required'
     if (!phone.trim()) e.phone = 'Phone number is required'
+    if (!gender) e.gender = 'Please select your gender'
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -58,6 +60,7 @@ export function CheckInForm() {
       email: email.trim(),
       phone: phone.trim(),
       country_code: countryCode,
+      gender: gender || undefined,
       display_consent: consent,
     }
 
@@ -89,6 +92,7 @@ export function CheckInForm() {
         checked_in_at: new Date().toISOString(),
         avatar_seed: `bot-offline-${Math.random().toString(36).slice(2)}`,
         avatar_color: '#FF4F00',
+        gender: (gender as 'male' | 'female') || null,
         is_dummy: false,
         display_consent: consent,
         is_active: true,
@@ -107,6 +111,7 @@ export function CheckInForm() {
     setEmail('')
     setPhone('')
     setCountryCode('+60')
+    setGender('')
     setConsent(false)
     setErrors({})
     setShowNumPad(false)
@@ -197,6 +202,24 @@ export function CheckInForm() {
               onFocus={() => setShowNumPad(true)}
             />
             {errors.phone && <p className="mt-1 text-red-400 text-sm">{errors.phone}</p>}
+          </div>
+
+          {/* Gender */}
+          <div>
+            <select
+              value={gender}
+              onChange={(e) => setGender(e.target.value as 'male' | 'female' | '')}
+              className={cn(
+                'w-full px-5 py-4 rounded-2xl bg-zinc-800 border-2 text-xl text-white outline-none focus:border-brand-orange transition-colors appearance-none',
+                errors.gender ? 'border-red-500' : 'border-zinc-700',
+                !gender && 'text-zinc-500'
+              )}
+            >
+              <option value="" disabled>Select Gender *</option>
+              <option value="male" className="text-white">♂  Male</option>
+              <option value="female" className="text-white">♀  Female</option>
+            </select>
+            {errors.gender && <p className="mt-1 text-red-400 text-sm">{errors.gender}</p>}
           </div>
 
           {/* NumPad */}

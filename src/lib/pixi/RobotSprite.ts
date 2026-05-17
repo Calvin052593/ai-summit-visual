@@ -7,9 +7,13 @@ const ARRIVAL_THRESHOLD = 12
 const PAUSE_MIN = 1500
 const PAUSE_MAX = 4000
 const MAX_VELOCITY = 1.2
-const SEPARATION_RADIUS = 40
+const SEPARATION_RADIUS = 48
 const SEPARATION_STRENGTH = 0.3
-const WOBBLE_AMOUNT = 0.06
+const WOBBLE_AMOUNT = 0.04
+
+// Portrait dimensions for the character sprite
+const CHAR_W = 44
+const CHAR_H = 88
 
 export class RobotSprite extends Container {
   readonly attendeeId: string
@@ -46,20 +50,19 @@ export class RobotSprite extends Container {
     this.y = startY
     this.targetX = targetX
     this.targetY = targetY
-    this.speed = SPEED * (0.8 + Math.random() * 0.4)
+    this.speed = SPEED * (0.85 + Math.random() * 0.3)
     this.wobbleSpeed = 0.02 + Math.random() * 0.03
 
-    // Avatar sprite (tinted with brand color)
+    // Character sprite — no tint, natural colors
     this.avatarSprite = new Sprite(texture)
     this.avatarSprite.anchor.set(0.5, 1)
-    this.avatarSprite.width = 48
-    this.avatarSprite.height = 48
-    this.avatarSprite.tint = parseInt(color.replace('#', ''), 16)
+    this.avatarSprite.width = CHAR_W
+    this.avatarSprite.height = CHAR_H
     this.addChild(this.avatarSprite)
 
-    // Name pill
+    // Name pill — positioned above the character head
     this.namePill = new Container()
-    this.namePill.y = -56
+    this.namePill.y = -(CHAR_H + 12)
 
     this.namePillBg = new Graphics()
     this.namePill.addChild(this.namePillBg)

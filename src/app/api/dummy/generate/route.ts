@@ -25,6 +25,7 @@ export async function POST(req: Request) {
       country_code: randomDummyCountryCode(),
       avatar_seed: `bot-${nanoid(10)}`,
       avatar_color: randomAvatarColor(),
+      gender: Math.random() < 0.5 ? 'male' : 'female',
       is_dummy: true,
       display_consent: true,
       is_active: true,

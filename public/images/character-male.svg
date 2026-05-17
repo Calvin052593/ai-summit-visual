@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 80">
+  <defs>
+    <radialGradient id="m-skin" cx="45%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FDDCB5"/>
+      <stop offset="100%" stop-color="#F0A875"/>
+    </radialGradient>
+    <radialGradient id="m-head" cx="40%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FDDCB5"/>
+      <stop offset="100%" stop-color="#ECA060"/>
+    </radialGradient>
+    <radialGradient id="m-vest-l" cx="30%" cy="20%" r="80%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </radialGradient>
+    <radialGradient id="m-vest-r" cx="70%" cy="20%" r="80%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </radialGradient>
+    <radialGradient id="m-shorts" cx="50%" cy="20%" r="80%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#5B21B6"/>
+    </radialGradient>
+    <filter id="m-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Body drop shadow -->
+  <ellipse cx="20" cy="79" rx="11" ry="2.5" fill="#000" fill-opacity="0.35"/>
+
+  <!-- ── SHOES ── -->
+  <!-- Left shoe -->
+  <rect x="4" y="69" width="14" height="10" rx="5" fill="#1E293B"/>
+  <rect x="4" y="69" width="14" height="4" rx="2" fill="#3B82F6" fill-opacity="0.7"/>
+  <line x1="5.5" y1="70.5" x2="16.5" y2="77.5" stroke="#94A3B8" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="16.5" y1="70.5" x2="5.5" y2="77.5" stroke="#94A3B8" stroke-width="1.4" stroke-linecap="round"/>
+  <!-- Right shoe -->
+  <rect x="22" y="69" width="14" height="10" rx="5" fill="#1E293B"/>
+  <rect x="22" y="69" width="14" height="4" rx="2" fill="#3B82F6" fill-opacity="0.7"/>
+  <line x1="23.5" y1="70.5" x2="34.5" y2="77.5" stroke="#94A3B8" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="34.5" y1="70.5" x2="23.5" y2="77.5" stroke="#94A3B8" stroke-width="1.4" stroke-linecap="round"/>
+
+  <!-- ── LEGS (shorts) ── -->
+  <rect x="5" y="53" width="12" height="18" rx="5" fill="url(#m-shorts)"/>
+  <rect x="23" y="53" width="12" height="18" rx="5" fill="url(#m-shorts)"/>
+  <!-- Shorts waistband -->
+  <rect x="4" y="46" width="32" height="12" rx="5" fill="#6D28D9"/>
+  <!-- Belt highlight -->
+  <rect x="4" y="46" width="32" height="4" rx="3" fill="#7C3AED" fill-opacity="0.6"/>
+
+  <!-- ── BODY (white shirt under vest) ── -->
+  <rect x="8" y="27" width="24" height="23" rx="5" fill="white"/>
+
+  <!-- Left vest panel with gradient -->
+  <rect x="7" y="27" width="10" height="23" rx="4" fill="url(#m-vest-l)"/>
+  <!-- Right vest panel -->
+  <rect x="23" y="27" width="10" height="23" rx="4" fill="url(#m-vest-r)"/>
+  <!-- Vest gold trim -->
+  <rect x="7" y="27" width="2.5" height="23" rx="1.25" fill="#FBBF24"/>
+  <rect x="30.5" y="27" width="2.5" height="23" rx="1.25" fill="#FBBF24"/>
+  <!-- Red chest stripe -->
+  <rect x="17" y="35" width="6" height="6" rx="1.5" fill="#EF4444"/>
+  <!-- White shirt collar -->
+  <path d="M17 27 L20 31 L23 27" fill="white" stroke="white" stroke-width="0.5"/>
+
+  <!-- ── ARMS ── -->
+  <!-- Left arm (vest sleeve) -->
+  <rect x="0" y="27" width="8" height="18" rx="4" fill="#3B82F6"/>
+  <!-- Right arm -->
+  <rect x="32" y="27" width="8" height="18" rx="4" fill="#3B82F6"/>
+  <!-- Gold trim on arms -->
+  <rect x="0" y="27" width="2" height="18" rx="1" fill="#FBBF24"/>
+  <rect x="38" y="27" width="2" height="18" rx="1" fill="#FBBF24"/>
+  <!-- Left glove / hand -->
+  <circle cx="4" cy="46" r="4.5" fill="url(#m-skin)"/>
+  <!-- Right glove / hand -->
+  <circle cx="36" cy="46" r="4.5" fill="url(#m-skin)"/>
+  <!-- Wristband left -->
+  <rect x="0" y="39" width="9" height="3" rx="1.5" fill="#1D4ED8"/>
+  <!-- Wristband right -->
+  <rect x="31" y="39" width="9" height="3" rx="1.5" fill="#1D4ED8"/>
+
+  <!-- ── NECK ── -->
+  <rect x="16" y="21" width="8" height="8" fill="url(#m-skin)"/>
+
+  <!-- ── HEAD ── -->
+  <circle cx="20" cy="15" r="14" fill="url(#m-head)" filter="url(#m-shadow)"/>
+
+  <!-- ── HAIR (dark, spiky back) ── -->
+  <path d="M6 15 Q6 3 20 3 Q34 3 34 15" fill="#1C1C1E"/>
+  <!-- Side burns -->
+  <rect x="6" y="12" width="4" height="8" rx="2" fill="#1C1C1E"/>
+  <rect x="30" y="12" width="4" height="8" rx="2" fill="#1C1C1E"/>
+  <!-- Ear left -->
+  <circle cx="6" cy="15" r="3" fill="url(#m-skin)"/>
+  <!-- Ear right -->
+  <circle cx="34" cy="15" r="3" fill="url(#m-skin)"/>
+
+  <!-- ── CAP ── -->
+  <!-- Cap dome -->
+  <path d="M7 14 Q7 4 20 4 Q33 4 33 14" fill="#DC2626"/>
+  <!-- Cap brim -->
+  <rect x="2" y="12" width="36" height="5" rx="2.5" fill="#B91C1C"/>
+  <!-- Cap brim highlight -->
+  <rect x="2" y="12" width="36" height="2" rx="1.5" fill="#EF4444" fill-opacity="0.5"/>
+  <!-- Cap logo (green circle with C) -->
+  <circle cx="20" cy="9" r="4" fill="#15803D"/>
+  <circle cx="20" cy="9" r="2.5" fill="#15803D" stroke="white" stroke-width="1"/>
+  <!-- Cap button top -->
+  <circle cx="20" cy="4" r="1.5" fill="#9CA3AF"/>
+
+  <!-- ── FACE ── -->
+  <!-- Eyebrows -->
+  <path d="M12 12 Q15 10 17 12" stroke="#4B2D0F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M23 12 Q25 10 28 12" stroke="#4B2D0F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Eye whites -->
+  <ellipse cx="15" cy="16" rx="3.5" ry="3.5" fill="white"/>
+  <ellipse cx="25" cy="16" rx="3.5" ry="3.5" fill="white"/>
+  <!-- Iris -->
+  <circle cx="15" cy="16" r="2.3" fill="#1C1C1E"/>
+  <circle cx="25" cy="16" r="2.3" fill="#1C1C1E"/>
+  <!-- Pupil shine -->
+  <circle cx="15.8" cy="15.2" r="0.9" fill="white"/>
+  <circle cx="25.8" cy="15.2" r="0.9" fill="white"/>
+  <!-- Ash-style lightning cheek marks -->
+  <path d="M8 17 L9.5 19.5 L8 19.5 L9 22" stroke="#D97706" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 17 L30.5 19.5 L32 19.5 L31 22" stroke="#D97706" stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Mouth (slight smirk) -->
+  <path d="M17 21 Q20 23.5 23 21" stroke="#C0897A" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+</svg>
