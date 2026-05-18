@@ -76,20 +76,25 @@ export async function getAvatarCanvas(seed: string, size = 64): Promise<HTMLCanv
   return canvas
 }
 
-// ── Character sprites (male / female) ──────────────────────────────────────
+// ── Procedural character sprites (unique per seed + gender) ─────────────────
+import { generateCharacterSvg } from './CharacterGenerator'
+
 const charCanvasCache = new Map<string, HTMLCanvasElement>()
 
 export async function getCharacterCanvas(
+  seed: string,
   gender: 'male' | 'female',
-  width = 40,
-  height = 80
+  width = 44,
+  height = 88
 ): Promise<HTMLCanvasElement> {
-  const key = `${gender}-${width}x${height}`
+  const key = `${seed}-${gender}`
   if (charCanvasCache.has(key)) return charCanvasCache.get(key)!
+  if (charCanvasCache.size >= MAX_CACHE) {
+    const firstKey = charCanvasCache.keys().next().value
+    if (firstKey) charCanvasCache.delete(firstKey)
+  }
 
-  const url = gender === 'female' ? '/images/character-female.svg' : '/images/character-male.svg'
-  const response = await fetch(url)
-  const svgText = await response.text()
+  const svgText = generateCharacterSvg(seed, gender)
   const blob = new Blob([svgText], { type: 'image/svg+xml' })
   const blobUrl = URL.createObjectURL(blob)
 
@@ -107,7 +112,7 @@ export async function getCharacterCanvas(
     }
     img.onerror = () => {
       URL.revokeObjectURL(blobUrl)
-      reject(new Error(`Failed to load character SVG: ${url}`))
+      reject(new Error('Failed to rasterise character SVG'))
     }
     img.src = blobUrl
   })

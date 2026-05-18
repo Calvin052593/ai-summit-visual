@@ -49,17 +49,16 @@ export class RobotSprite extends Container {
     this.speed = SPEED * (0.8 + Math.random() * 0.4)
     this.wobbleSpeed = 0.02 + Math.random() * 0.03
 
-    // Avatar sprite (tinted with brand color)
+    // Character sprite — natural colours, portrait aspect
     this.avatarSprite = new Sprite(texture)
     this.avatarSprite.anchor.set(0.5, 1)
-    this.avatarSprite.width = 48
-    this.avatarSprite.height = 48
-    this.avatarSprite.tint = parseInt(color.replace('#', ''), 16)
+    this.avatarSprite.width = 44
+    this.avatarSprite.height = 88
     this.addChild(this.avatarSprite)
 
-    // Name pill
+    // Name pill — sits above the head
     this.namePill = new Container()
-    this.namePill.y = -56
+    this.namePill.y = -100
 
     this.namePillBg = new Graphics()
     this.namePill.addChild(this.namePillBg)
