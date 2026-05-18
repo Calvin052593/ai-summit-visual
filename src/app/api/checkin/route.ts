@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server'
 import { nanoid } from 'nanoid'
 import { createServiceClient } from '@/lib/supabase/server'
 import { randomAvatarColor } from '@/lib/brand'
-import { getCharacterForAttendee } from '@/lib/character-pool'
 import type { CheckInPayload } from '@/types/attendee'
 
 export async function POST(req: Request) {
@@ -50,8 +49,6 @@ export async function POST(req: Request) {
 
   const avatar_seed = `bot-${nanoid(10)}`
   const avatar_color = randomAvatarColor()
-  const resolvedGender = (gender as 'male' | 'female') ?? 'male'
-  const { characterId } = getCharacterForAttendee(resolvedGender, avatar_seed)
 
   const { data, error } = await supabase
     .from('attendees')
@@ -64,7 +61,6 @@ export async function POST(req: Request) {
       avatar_seed,
       avatar_color,
       gender: gender ?? null,
-      character_id: characterId,
       is_dummy: false,
       display_consent: display_consent ?? false,
       is_active: true,

@@ -3,7 +3,6 @@ import { nanoid } from 'nanoid'
 import { createServiceClient } from '@/lib/supabase/server'
 import { randomAvatarColor } from '@/lib/brand'
 import { randomDummyName, randomDummyEmail, randomDummyCountryCode } from '@/lib/dummy-names'
-import { getCharacterForAttendee } from '@/lib/character-pool'
 
 export async function POST(req: Request) {
   let count = 2
@@ -18,19 +17,15 @@ export async function POST(req: Request) {
 
   const rows = Array.from({ length: count }, () => {
     const { first_name, last_name } = randomDummyName()
-    const avatar_seed = `bot-${nanoid(10)}`
-    const gender: 'male' | 'female' = Math.random() < 0.5 ? 'male' : 'female'
-    const { characterId } = getCharacterForAttendee(gender, avatar_seed)
     return {
       first_name,
       last_name,
       email: randomDummyEmail(first_name, last_name),
       phone: `01${Math.floor(10000000 + Math.random() * 90000000)}`,
       country_code: randomDummyCountryCode(),
-      avatar_seed,
+      avatar_seed: `bot-${nanoid(10)}`,
       avatar_color: randomAvatarColor(),
-      gender,
-      character_id: characterId,
+      gender: Math.random() < 0.5 ? 'male' : 'female',
       is_dummy: true,
       display_consent: true,
       is_active: true,
