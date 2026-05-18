@@ -19,10 +19,7 @@ export function CheckInForm() {
   const [mobileUrl, setMobileUrl] = useState('')
 
   useEffect(() => {
-    fetch('/api/local-ip')
-      .then((r) => r.json())
-      .then(({ ip }) => setMobileUrl(`http://${ip}:3000/checkin`))
-      .catch(() => setMobileUrl(`${window.location.origin}/checkin`))
+    setMobileUrl(`${window.location.origin}/checkin`)
   }, [])
 
   const [firstName, setFirstName] = useState('')
