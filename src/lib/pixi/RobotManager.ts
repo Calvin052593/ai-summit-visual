@@ -1,10 +1,10 @@
-import { Application, Container, Text, TextStyle, Texture } from 'pixi.js'
+import { Application, Assets, Container, Text, TextStyle, Texture } from 'pixi.js'
 import { RobotSprite } from './RobotSprite'
 import { ClusterDot } from './ClusterDot'
 import { WaypointSystem } from './WaypointSystem'
 import { NoiseMotion } from './NoiseMotion'
 import { EntranceEffect } from './EntranceEffect'
-import { getCharacterCanvas } from '@/lib/avatar'
+import { malePool, femalePool, getCharacterPath } from '@/lib/character-pool'
 import { BRAND } from '@/lib/brand'
 import type { Attendee } from '@/types/attendee'
 
@@ -22,12 +22,27 @@ export class RobotManager {
   private overflowLabel: Text | null = null
   private overflowCount = 0
   private tickerBound: (() => void) | null = null
+  private textureCache = new Map<string, Texture>()
 
   constructor(app: Application) {
     this.app = app
     this.stage = new Container()
     app.stage.addChild(this.stage)
     this.startTicker()
+  }
+
+  async preloadCharacters(): Promise<void> {
+    const allPaths = [...malePool, ...femalePool]
+    await Promise.all(
+      allPaths.map(async (path) => {
+        try {
+          const tex = await Assets.load(path)
+          this.textureCache.set(path, tex)
+        } catch {
+          this.textureCache.set(path, Texture.WHITE)
+        }
+      })
+    )
   }
 
   private startTicker() {
@@ -86,7 +101,6 @@ export class RobotManager {
           this.sprites.delete(oldestId)
         }
         this.insertionOrder.shift()
-        // Add as cluster dot instead
         const oldAttendee = { id: oldestId, avatar_color: BRAND.orange } as Attendee
         this.spawnDot(oldAttendee)
       }
@@ -97,7 +111,7 @@ export class RobotManager {
 
   private async spawnRobot(attendee: Attendee, withEntrance: boolean) {
     const gender = attendee.gender ?? (parseInt(attendee.id[0], 16) % 2 === 0 ? 'male' : 'female')
-    const texture = await this.loadTexture(attendee.avatar_seed, gender)
+    const texture = this.getTexture(gender as 'male' | 'female', attendee.character_id)
     const spawnPos = this.waypoints.randomSpawnPoint()
     const targetPos = this.waypoints.randomWaypoint()
     const color = attendee.avatar_color ?? BRAND.orange
@@ -112,17 +126,26 @@ export class RobotManager {
       targetPos.x,
       targetPos.y
     )
-    sprite.visible = !withEntrance
+
+    if (withEntrance) {
+      sprite.alpha = 0
+    }
 
     this.stage.addChild(sprite)
     this.sprites.set(attendee.id, sprite)
     this.insertionOrder.push(attendee.id)
 
     if (withEntrance) {
-      EntranceEffect.play(this.app, this.stage, spawnPos.x, spawnPos.y - 24, () => {
-        sprite.visible = true
+      EntranceEffect.play(this.app, this.stage, spawnPos.x, spawnPos.y - 30, () => {
+        sprite.playEntrance(this.app)
       })
     }
+  }
+
+  private getTexture(gender: 'male' | 'female', characterId: number | null | undefined): Texture {
+    const id = characterId ?? 0
+    const path = getCharacterPath(gender, id)
+    return this.textureCache.get(path) ?? Texture.WHITE
   }
 
   private spawnDot(attendee: Attendee) {
@@ -131,15 +154,6 @@ export class RobotManager {
     this.stage.addChild(dot)
     this.dots.set(attendee.id, dot)
     this.overflowCount = this.dots.size
-  }
-
-  private async loadTexture(seed: string, gender: 'male' | 'female'): Promise<Texture> {
-    try {
-      const canvas = await getCharacterCanvas(seed, gender)
-      return Texture.from(canvas)
-    } catch {
-      return Texture.WHITE
-    }
   }
 
   private updateOverflowLabel() {

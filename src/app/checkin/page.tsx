@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { enqueue } from '@/lib/offline-queue'
 import { useOfflineQueue } from '@/hooks/useOfflineQueue'
 import { cn } from '@/lib/utils'
+import { malePool, femalePool } from '@/lib/character-pool'
 import type { Attendee, CheckInResponse } from '@/types/attendee'
 
 const COUNTRY_CODES = ['+60', '+65', '+62', '+66', '+84', '+63', '+95', '+855', '+856', '+673',
@@ -13,17 +14,19 @@ const COUNTRY_CODES = ['+60', '+65', '+62', '+66', '+84', '+63', '+95', '+855', 
 
 const RESET_DELAY = 5000
 
+type Step = 'form' | 'avatar'
+
 function MobileCheckInForm() {
   useOfflineQueue()
   const searchParams = useSearchParams()
   const eventId = searchParams.get('event') ?? undefined
 
+  const [step, setStep] = useState<Step>('form')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [countryCode, setCountryCode] = useState('+60')
-  const [gender, setGender] = useState<'male' | 'female' | ''>('')
   const [consent, setConsent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -31,24 +34,28 @@ function MobileCheckInForm() {
 
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const validate = () => {
+  const validateForm = () => {
     const e: Record<string, string> = {}
     if (!firstName.trim()) e.firstName = 'First name required'
     if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) e.email = 'Valid email required'
     if (!phone.trim()) e.phone = 'Phone number required'
-    if (!gender) e.gender = 'Please select your gender'
     setErrors(e)
     return Object.keys(e).length === 0
   }
 
   const reset = useCallback(() => {
+    setStep('form')
     setFirstName(''); setLastName(''); setEmail(''); setPhone('')
-    setCountryCode('+60'); setGender(''); setConsent(false); setErrors({}); setSuccess(null)
+    setCountryCode('+60'); setConsent(false); setErrors({}); setSuccess(null)
   }, [])
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleFormNext = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!validate()) return
+    if (!validateForm()) return
+    setStep('avatar')
+  }
+
+  const handleSubmit = async (gender: 'male' | 'female') => {
     setLoading(true)
 
     const payload = {
@@ -57,7 +64,7 @@ function MobileCheckInForm() {
       email: email.trim(),
       phone: phone.trim(),
       country_code: countryCode,
-      gender: gender || undefined,
+      gender,
       display_consent: consent,
       event_id: eventId,
     }
@@ -82,7 +89,8 @@ function MobileCheckInForm() {
         checked_in_at: new Date().toISOString(),
         avatar_seed: `bot-offline-${Math.random().toString(36).slice(2)}`,
         avatar_color: '#FF4F00',
-        gender: (gender as 'male' | 'female') || null,
+        gender,
+        character_id: 0,
         is_dummy: false,
         display_consent: consent,
         is_active: true,
@@ -104,7 +112,6 @@ function MobileCheckInForm() {
 
   return (
     <div className="min-h-screen w-full bg-[#0A0A0A] flex flex-col">
-      {/* Top accent bar */}
       <div className="h-1 w-full bg-gradient-to-r from-[#FF4F00] via-[#FFB800] to-[#00E5FF]" />
 
       <div className="flex-1 w-full flex flex-col items-center justify-center px-5 py-8">
@@ -114,11 +121,14 @@ function MobileCheckInForm() {
             <span className="text-xl">🤖</span>
             <span className="font-bold text-white text-sm tracking-wide">AI Summit</span>
           </div>
-          <h1 className="text-white text-3xl font-bold mb-1">Check In</h1>
-          <p className="text-zinc-500 text-sm">{"You're Gen AI"}</p>
+          <h1 className="text-white text-3xl font-bold mb-1">
+            {step === 'avatar' ? 'Choose Your Avatar' : 'Check In'}
+          </h1>
+          <p className="text-zinc-500 text-sm">
+            {step === 'avatar' ? 'Select your character for the event display' : "You're Gen AI"}
+          </p>
         </div>
 
-        {/* Form */}
         <AnimatePresence mode="wait">
           {success ? (
             <motion.div
@@ -164,13 +174,72 @@ function MobileCheckInForm() {
                 Done
               </button>
             </motion.div>
+
+          ) : step === 'avatar' ? (
+            <motion.div
+              key="avatar"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -30 }}
+              className="w-full max-w-sm"
+            >
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                {(['male', 'female'] as const).map((g) => {
+                  const pool = g === 'male' ? malePool : femalePool
+                  const previewSrc = pool[0]
+                  return (
+                    <button
+                      key={g}
+                      onClick={() => handleSubmit(g)}
+                      disabled={loading}
+                      className={cn(
+                        'flex flex-col items-center gap-3 p-4 rounded-2xl border-2 transition-all duration-200',
+                        'bg-zinc-900 border-zinc-700 hover:border-[#FF4F00]',
+                        'hover:shadow-[0_0_24px_rgba(255,79,0,0.35)]',
+                        'active:scale-95',
+                        loading && 'opacity-50 cursor-not-allowed'
+                      )}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={previewSrc}
+                        alt={g}
+                        className="w-28 h-28 object-contain"
+                        style={{ filter: 'drop-shadow(0 4px 10px rgba(255,79,0,0.25))' }}
+                      />
+                      <span className="text-white font-bold text-base capitalize">
+                        {g === 'male' ? '♂ Male' : '♀ Female'}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+
+              {loading && (
+                <p className="text-center text-[#FF4F00] font-mono text-sm animate-pulse mb-4">
+                  Checking in…
+                </p>
+              )}
+
+              <button
+                onClick={() => setStep('form')}
+                disabled={loading}
+                className="w-full py-3 text-zinc-500 hover:text-zinc-300 transition-colors text-sm"
+              >
+                ← Back
+              </button>
+              <p className="text-center text-zinc-700 text-xs mt-3">
+                8–9 Aug 2026 · MITEC Kuala Lumpur
+              </p>
+            </motion.div>
+
           ) : (
             <motion.form
               key="form"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              onSubmit={handleSubmit}
+              onSubmit={handleFormNext}
               className="w-full max-w-sm space-y-3"
             >
               {/* First + Last */}
@@ -242,24 +311,6 @@ function MobileCheckInForm() {
                 {errors.phone && <p className="mt-1 text-red-400 text-xs">{errors.phone}</p>}
               </div>
 
-              {/* Gender */}
-              <div>
-                <select
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value as 'male' | 'female' | '')}
-                  className={cn(
-                    'w-full px-4 py-3 rounded-xl bg-zinc-900 border-2 text-white outline-none focus:border-[#FF4F00] transition-colors text-base appearance-none',
-                    errors.gender ? 'border-red-500' : gender ? 'border-zinc-800' : 'border-zinc-800',
-                    !gender && 'text-zinc-600'
-                  )}
-                >
-                  <option value="" disabled>Select Gender *</option>
-                  <option value="male">♂  Male</option>
-                  <option value="female">♀  Female</option>
-                </select>
-                {errors.gender && <p className="mt-1 text-red-400 text-xs">{errors.gender}</p>}
-              </div>
-
               {/* Consent */}
               <label className="flex items-start gap-3 cursor-pointer p-3 rounded-xl bg-zinc-900 border-2 border-zinc-800">
                 <input
@@ -273,18 +324,12 @@ function MobileCheckInForm() {
                 </span>
               </label>
 
-              {/* Submit */}
+              {/* Next */}
               <button
                 type="submit"
-                disabled={loading}
-                className={cn(
-                  'w-full py-4 rounded-xl text-lg font-bold text-white transition-all',
-                  loading
-                    ? 'bg-zinc-700 cursor-not-allowed'
-                    : 'bg-[#FF4F00] hover:bg-orange-600 active:scale-95 shadow-lg shadow-orange-900/30'
-                )}
+                className="w-full py-4 rounded-xl text-lg font-bold text-white transition-all bg-[#FF4F00] hover:bg-orange-600 active:scale-95 shadow-lg shadow-orange-900/30"
               >
-                {loading ? 'Checking in…' : '🤖 Check In'}
+                Next — Choose Avatar →
               </button>
 
               <p className="text-center text-zinc-700 text-xs mt-2">

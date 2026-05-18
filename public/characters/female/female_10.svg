@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- REPLACE: drop real female_10.png here — 512×512 transparent PNG, full-body adult, smart-casual -->
+  <!-- Ground shadow -->
+  <ellipse cx="256" cy="500" rx="90" ry="14" fill="#000" fill-opacity="0.25"/>
+  <!-- Shoes (heeled) -->
+  <ellipse cx="210" cy="487" rx="38" ry="16" fill="#1C1C1E"/>
+  <ellipse cx="302" cy="487" rx="38" ry="16" fill="#1C1C1E"/>
+  <rect x="194" y="462" width="8" height="28" rx="4" fill="#2C2C2E"/>
+  <rect x="286" y="462" width="8" height="28" rx="4" fill="#2C2C2E"/>
+  <!-- Legs -->
+  <rect x="183" y="340" width="58" height="148" rx="26" fill="#FDDCB5"/>
+  <rect x="271" y="340" width="58" height="148" rx="26" fill="#FDDCB5"/>
+  <!-- Skirt/bottom -->
+  <path d="M148 310 Q128 420 220 468 Q256 476 292 468 Q384 420 364 310 Z" fill="#4A148C"/>
+  <!-- Jacket/top body -->
+  <rect x="154" y="180" width="204" height="146" rx="24" fill="#4A148C"/>
+  <!-- Shirt accent -->
+  <rect x="224" y="180" width="64" height="146" rx="0" fill="#F5F5F5" fill-opacity="0.9"/>
+  <!-- Left arm -->
+  <rect x="96" y="186" width="60" height="136" rx="30" fill="#4A148C"/>
+  <!-- Right arm -->
+  <rect x="356" y="186" width="60" height="136" rx="30" fill="#4A148C"/>
+  <!-- Hands -->
+  <circle cx="126" cy="328" r="28" fill="#FDDCB5"/>
+  <circle cx="386" cy="328" r="28" fill="#FDDCB5"/>
+  <!-- Neck -->
+  <rect x="232" y="149" width="48" height="42" rx="24" fill="#FDDCB5"/>
+  <!-- Head -->
+  <circle cx="256" cy="108" r="88" fill="#FDDCB5"/>
+  <!-- Long hair (female) -->
+  <path d="M168 88 Q168 20 256 20 Q344 20 344 88" fill="#1A1A1A"/>
+  <rect x="168" y="80" width="16" height="100" rx="8" fill="#1A1A1A"/>
+  <rect x="328" y="80" width="16" height="100" rx="8" fill="#1A1A1A"/>
+  <ellipse cx="256" cy="26" rx="76" ry="18" fill="#1A1A1A"/>
+  <!-- Ears + earrings -->
+  <circle cx="168" cy="112" r="18" fill="#FDDCB5"/>
+  <circle cx="344" cy="112" r="18" fill="#FDDCB5"/>
+  <circle cx="163" cy="128" r="7" fill="#4A148C"/>
+  <circle cx="349" cy="128" r="7" fill="#4A148C"/>
+  <!-- Eyes (larger, feminine) -->
+  <ellipse cx="222" cy="104" rx="20" ry="18" fill="white"/>
+  <ellipse cx="290" cy="104" rx="20" ry="18" fill="white"/>
+  <circle cx="224" cy="106" r="13" fill="#2C1C10"/>
+  <circle cx="292" cy="106" r="13" fill="#2C1C10"/>
+  <circle cx="228" cy="102" r="5.5" fill="white"/>
+  <circle cx="296" cy="102" r="5.5" fill="white"/>
+  <!-- Eyelashes -->
+  <path d="M204 90 L207 83" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M214 87 L216 80" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M272 87 L274 80" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M282 90 L285 83" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Eyebrows (arched) -->
+  <path d="M206 85 Q222 77 238 84" stroke="#1A1A1A" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <path d="M274 84 Q290 77 306 85" stroke="#1A1A1A" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+  <!-- Nose -->
+  <ellipse cx="256" cy="120" rx="9" ry="7" fill="#FDDCB5" stroke="#C08060" stroke-width="1.5"/>
+  <!-- Blush -->
+  <ellipse cx="200" cy="130" rx="22" ry="12" fill="#FFB3B3" fill-opacity="0.5"/>
+  <ellipse cx="312" cy="130" rx="22" ry="12" fill="#FFB3B3" fill-opacity="0.5"/>
+  <!-- Smile -->
+  <path d="M230 140 Q256 157 282 140" stroke="#C08060" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+</svg>

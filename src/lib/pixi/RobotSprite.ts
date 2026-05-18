@@ -10,6 +10,7 @@ const MAX_VELOCITY = 1.2
 const SEPARATION_RADIUS = 40
 const SEPARATION_STRENGTH = 0.3
 const WOBBLE_AMOUNT = 0.06
+const BOB_AMOUNT = 3
 
 export class RobotSprite extends Container {
   readonly attendeeId: string
@@ -26,6 +27,8 @@ export class RobotSprite extends Container {
   private wobbleAngle = 0
   private wobbleSpeed: number
   private speed: number
+  private bobPhase = 0
+  private isMoving = false
   color: string
 
   constructor(
@@ -49,16 +52,16 @@ export class RobotSprite extends Container {
     this.speed = SPEED * (0.8 + Math.random() * 0.4)
     this.wobbleSpeed = 0.02 + Math.random() * 0.03
 
-    // Character sprite — natural colours, portrait aspect
+    // Character sprite — 100–120px tall portrait
     this.avatarSprite = new Sprite(texture)
     this.avatarSprite.anchor.set(0.5, 1)
-    this.avatarSprite.width = 44
-    this.avatarSprite.height = 88
+    this.avatarSprite.width = 60
+    this.avatarSprite.height = 120
     this.addChild(this.avatarSprite)
 
     // Name pill — sits above the head
     this.namePill = new Container()
-    this.namePill.y = -100
+    this.namePill.y = -130
 
     this.namePillBg = new Graphics()
     this.namePill.addChild(this.namePillBg)
@@ -104,6 +107,25 @@ export class RobotSprite extends Container {
     this.targetY = y
   }
 
+  playEntrance(app: import('pixi.js').Application) {
+    this.scale.set(0.7)
+    this.alpha = 0
+    const startY = this.y + 20
+    this.y = startY
+    const startTime = performance.now()
+    const DURATION = 600
+
+    const tick = () => {
+      const t = Math.min((performance.now() - startTime) / DURATION, 1)
+      const eased = 1 - Math.pow(1 - t, 3)
+      this.scale.set(0.7 + eased * 0.3)
+      this.alpha = eased
+      this.y = startY - eased * 20
+      if (t >= 1) app.ticker.remove(tick)
+    }
+    app.ticker.add(tick)
+  }
+
   update(
     dt: number,
     noise: NoiseMotion,
@@ -116,6 +138,7 @@ export class RobotSprite extends Container {
       // Idle wobble
       this.wobbleAngle += this.wobbleSpeed * dt
       this.avatarSprite.rotation = Math.sin(this.wobbleAngle) * WOBBLE_AMOUNT
+      this.isMoving = false
       return
     }
 
@@ -177,6 +200,11 @@ export class RobotSprite extends Container {
     if (Math.abs(this.vx) > 0.1) {
       this.avatarSprite.scale.x = this.vx > 0 ? 1 : -1
     }
+
+    // Walking bob (gentle 2–3px sine wave on Y)
+    this.isMoving = true
+    this.bobPhase += 0.08 * dt
+    this.avatarSprite.y = Math.sin(this.bobPhase) * BOB_AMOUNT
 
     // Walking wobble
     this.wobbleAngle += this.wobbleSpeed * dt

@@ -9,6 +9,7 @@ export interface Attendee {
   avatar_seed: string
   avatar_color: string | null
   gender: 'male' | 'female' | null
+  character_id: number | null
   is_dummy: boolean
   display_consent: boolean
   is_active: boolean
@@ -24,6 +25,7 @@ export interface CheckInPayload {
   country_code: string
   display_consent: boolean
   gender?: 'male' | 'female'
+  character_id?: number
 }
 
 export interface CheckInResponse {

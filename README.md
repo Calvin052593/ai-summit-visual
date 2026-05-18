@@ -178,13 +178,60 @@ When active sprites exceed 250, the oldest are demoted to small static dots (clu
 
 ---
 
-## Changing the Avatar Style
+## Character Sprite Pool
 
-Avatars use [DiceBear](https://dicebear.com) `bottts` style. To switch styles:
+Avatars are served from a local sprite pool. Placeholder SVGs are included — swap them for real artwork before the event.
 
-1. Install the new style package: `npm install @dicebear/bottts-neutral` (or another style)
-2. Update `src/lib/avatar.ts` — change the import from `@dicebear/bottts` to your new package
-3. Update `next.config.ts` → `serverExternalPackages` to include the new package name
+### Directory layout
+
+```
+public/
+  characters/
+    male/
+      male_01.svg   ← placeholder; replace with male_01.png
+      …
+      male_10.svg
+    female/
+      female_01.svg ← placeholder; replace with female_01.png
+      …
+      female_10.svg
+```
+
+### Sprite specification
+
+| Property | Value |
+|----------|-------|
+| Size | 512 × 512 px |
+| Format | Transparent PNG (preferred) or SVG |
+| Style | Full-body standing adult, stylized / semi-realistic |
+| Attire | Smart-casual — jacket or blazer, tech-conference appropriate |
+| Background | Fully transparent |
+
+### Recommended sources
+
+- **Freepik** — search "business character illustration transparent PNG"
+- **Ready Player Me** (`readyplayer.me`) — export full-body PNG at 512 px
+- **Midjourney prompt** — `full body standing adult [male/female] character, smart casual attire, stylized 3D, transparent background, front view, no shadow --ar 1:1 --v 6`
+
+### Swapping placeholders for real sprites
+
+1. Drop PNGs into `public/characters/male/` and `public/characters/female/` named `male_01.png` … `male_10.png` (and `female_`).
+2. Open [`src/lib/character-pool.ts`](src/lib/character-pool.ts) and change `.svg` → `.png` in the two `Array.from` calls.
+3. Run `npm run build` to verify no asset errors.
+
+### Expanding beyond 10 per gender
+
+1. Add `male_11.png`, `male_12.png`, … to the folder.
+2. In `character-pool.ts`, increase `Array.from({ length: 10 }, …)` to match.
+3. Existing attendees keep their assigned character as long as you only append files (never reorder).
+
+### Database migration
+
+Run [`supabase/migrations/004_character_id.sql`](supabase/migrations/004_character_id.sql) in the Supabase dashboard SQL Editor:
+
+```sql
+ALTER TABLE attendees ADD COLUMN IF NOT EXISTS character_id integer;
+```
 
 ---
 
@@ -205,11 +252,13 @@ Defined in `tailwind.config.ts` under `theme.extend.colors.brand`:
 ## File Map (Key Files)
 
 ```
-src/lib/pixi/RobotManager.ts   — Sprite pool, 250 threshold, ticker loop
-src/lib/pixi/RobotSprite.ts    — One robot: avatar + name pill + Perlin motion
+src/lib/character-pool.ts      — Sprite pool paths + deterministic character assignment
+src/lib/pixi/RobotManager.ts   — preloadCharacters(), 250 threshold, ticker loop
+src/lib/pixi/RobotSprite.ts    — One character: avatar sprite + name pill + bob motion
+src/lib/pixi/EntranceEffect.ts — Orange radial pulse + spark particles on arrival
 src/lib/pixi/WaypointSystem.ts — Floor waypoints (UPDATE after bg swap)
-src/lib/avatar.ts              — DiceBear SVG → PixiJS Texture (LRU cache)
 src/lib/dummy-names.ts         — ~80 pan-Asian names (easy to edit)
 src/hooks/useRealtimeAttendees — Supabase Realtime subscription
 src/app/api/checkin/route.ts   — Trust boundary for all check-ins
+public/characters/             — Sprite image files (male_01–10, female_01–10)
 ```

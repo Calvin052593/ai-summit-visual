@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- REPLACE: drop real male_08.png here — 512×512 transparent PNG, full-body adult, smart-casual -->
+  <!-- Ground shadow -->
+  <ellipse cx="256" cy="500" rx="90" ry="14" fill="#000" fill-opacity="0.25"/>
+  <!-- Shoes -->
+  <ellipse cx="210" cy="487" rx="42" ry="18" fill="#1C1C1E"/>
+  <ellipse cx="302" cy="487" rx="42" ry="18" fill="#1C1C1E"/>
+  <!-- Legs (trousers) -->
+  <rect x="176" y="320" width="66" height="165" rx="28" fill="#1A2A4A"/>
+  <rect x="270" y="320" width="66" height="165" rx="28" fill="#1A2A4A"/>
+  <!-- Jacket/blazer body -->
+  <rect x="148" y="175" width="216" height="162" rx="28" fill="#1A237E"/>
+  <!-- Shirt/vest underneath -->
+  <rect x="220" y="175" width="72" height="162" rx="0" fill="#E8E8E8"/>
+  <!-- Left arm -->
+  <rect x="88" y="182" width="64" height="148" rx="32" fill="#1A237E"/>
+  <!-- Right arm -->
+  <rect x="360" y="182" width="64" height="148" rx="32" fill="#1A237E"/>
+  <!-- Hands -->
+  <circle cx="120" cy="338" r="30" fill="#F5C28A"/>
+  <circle cx="392" cy="338" r="30" fill="#F5C28A"/>
+  <!-- Neck -->
+  <rect x="228" y="145" width="56" height="44" rx="28" fill="#F5C28A"/>
+  <!-- Head -->
+  <circle cx="256" cy="106" r="92" fill="#F5C28A"/>
+  <!-- Short hair (male) -->
+  <path d="M172 88 Q172 14 256 14 Q340 14 340 88" fill="#2C1C10"/>
+  <rect x="172" y="76" width="168" height="20" rx="10" fill="#2C1C10"/>
+  <!-- Ears -->
+  <circle cx="164" cy="110" r="20" fill="#F5C28A"/>
+  <circle cx="348" cy="110" r="20" fill="#F5C28A"/>
+  <!-- Eyes -->
+  <ellipse cx="224" cy="102" rx="18" ry="16" fill="white"/>
+  <ellipse cx="288" cy="102" rx="18" ry="16" fill="white"/>
+  <circle cx="226" cy="104" r="11" fill="#2C1C10"/>
+  <circle cx="290" cy="104" r="11" fill="#2C1C10"/>
+  <circle cx="230" cy="100" r="5" fill="white"/>
+  <circle cx="294" cy="100" r="5" fill="white"/>
+  <!-- Eyebrows -->
+  <path d="M208 84 Q224 78 240 84" stroke="#2C1C10" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M272 84 Q288 78 304 84" stroke="#2C1C10" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- Nose -->
+  <ellipse cx="256" cy="118" rx="10" ry="8" fill="#F5C28A" stroke="#C08060" stroke-width="1.5"/>
+  <!-- Smile -->
+  <path d="M228 136 Q256 154 284 136" stroke="#C08060" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- Collar/tie -->
+  <path d="M228 175 L256 200 L284 175" fill="white" stroke="#1A237E" stroke-width="2"/>
+  <path d="M248 198 L256 240 L264 198" fill="#C0392B"/>
+</svg>

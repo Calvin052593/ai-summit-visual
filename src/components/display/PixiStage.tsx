@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Attendee } from '@/types/attendee'
 
 interface PixiStageProps {
@@ -12,6 +12,7 @@ export function PixiStage({ initialAttendees, newAttendee }: PixiStageProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const managerRef = useRef<import('@/lib/pixi/RobotManager').RobotManager | null>(null)
   const appRef = useRef<import('pixi.js').Application | null>(null)
+  const [loading, setLoading] = useState(true)
 
   // One-time initialization
   useEffect(() => {
@@ -61,6 +62,12 @@ export function PixiStage({ initialAttendees, newAttendee }: PixiStageProps) {
       }
       app.stage.addChild(scanlines)
 
+      // Preload all character sprites before populating the floor
+      await manager.preloadCharacters()
+
+      if (destroyed) return
+      setLoading(false)
+
       await manager.loadInitialAttendees(initialAttendees)
     }
 
@@ -83,10 +90,22 @@ export function PixiStage({ initialAttendees, newAttendee }: PixiStageProps) {
   }, [newAttendee])
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="block w-full"
-      style={{ height: '900px', imageRendering: 'auto' }}
-    />
+    <div className="relative w-full" style={{ height: '900px' }}>
+      <canvas
+        ref={canvasRef}
+        className="block w-full"
+        style={{ height: '900px', imageRendering: 'auto' }}
+      />
+      {loading && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0a0a0a] z-10">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-16 h-16 rounded-full border-4 border-zinc-800 border-t-[#FF4F00] animate-spin" />
+            <p className="font-mono text-[#FF4F00] text-lg tracking-widest animate-pulse">
+              Initializing Gen AI hall... 🤖
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }

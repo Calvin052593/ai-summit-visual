@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { generateAvatarSvg, avatarSvgToDataUrl } from '@/lib/avatar'
+import { getCharacterPath } from '@/lib/character-pool'
 import type { Attendee } from '@/types/attendee'
 
 interface WelcomeOverlayProps {
@@ -13,7 +13,9 @@ interface WelcomeOverlayProps {
 export function WelcomeOverlay({ attendee, count, onDone }: WelcomeOverlayProps) {
   if (!attendee) return null
 
-  const svgDataUrl = avatarSvgToDataUrl(generateAvatarSvg(attendee.avatar_seed))
+  const gender = attendee.gender ?? 'male'
+  const characterId = attendee.character_id ?? 0
+  const avatarPath = getCharacterPath(gender as 'male' | 'female', characterId)
 
   return (
     <AnimatePresence>
@@ -26,35 +28,43 @@ export function WelcomeOverlay({ attendee, count, onDone }: WelcomeOverlayProps)
           className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-brand-black"
           onClick={onDone}
         >
-          {/* Scan-line overlay for futuristic feel */}
+          {/* Subtle dark scanlines */}
           <div className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,229,255,0.02) 2px, rgba(0,229,255,0.02) 4px)',
+              background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px)',
             }}
           />
 
-          {/* Glow ring */}
+          {/* Orange glow ring */}
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: [0, 1.2, 1], opacity: [0, 1, 0.8] }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="absolute w-64 h-64 rounded-full border-2 border-brand-cyan"
-            style={{ boxShadow: '0 0 40px #00E5FF, 0 0 80px rgba(0,229,255,0.3)' }}
+            animate={{ scale: [0, 1.3, 1], opacity: [0, 1, 0.7] }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            className="absolute w-72 h-72 rounded-full border-2 border-brand-orange"
+            style={{ boxShadow: '0 0 60px #FF4F00, 0 0 120px rgba(255,79,0,0.25)' }}
           />
 
-          {/* Robot avatar */}
+          {/* Secondary gold ring */}
           <motion.div
-            initial={{ scale: 0.5, opacity: 0, y: 20 }}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: [0, 1.6, 1.1], opacity: [0, 0.5, 0] }}
+            transition={{ duration: 0.9, ease: 'easeOut', delay: 0.1 }}
+            className="absolute w-72 h-72 rounded-full border border-[#FFB800]"
+          />
+
+          {/* Character avatar */}
+          <motion.div
+            initial={{ scale: 0.7, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative z-10 mb-6"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={svgDataUrl}
+              src={avatarPath}
               alt={attendee.first_name}
-              className="w-40 h-40"
-              style={{ filter: `drop-shadow(0 0 20px ${attendee.avatar_color ?? '#FF4F00'})` }}
+              className="w-52 h-52 object-contain"
+              style={{ filter: 'drop-shadow(0 0 24px rgba(255,79,0,0.6))' }}
             />
           </motion.div>
 
@@ -65,9 +75,6 @@ export function WelcomeOverlay({ attendee, count, onDone }: WelcomeOverlayProps)
             transition={{ duration: 0.5, delay: 0.35 }}
             className="text-center z-10 px-8"
           >
-            <p className="text-brand-cyan font-mono text-sm tracking-widest uppercase mb-2">
-              RENDERING №{count.toString().padStart(3, '0')}
-            </p>
             <h1 className="font-heading text-5xl font-bold text-brand-white mb-3">
               Welcome, {attendee.first_name}!
             </h1>
