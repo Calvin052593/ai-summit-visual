@@ -18,18 +18,16 @@ export function QRCodePanel({ eventId, eventName }: QRCodePanelProps) {
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null)
   const [tab, setTab] = useState<Tab>('checkin')
 
-  // Fetch local LAN IP so phones on the same WiFi can reach the server
   useEffect(() => {
     const stored = localStorage.getItem('qr_base_url')
-    if (stored) { setBaseUrl(stored); return }
-
-    fetch('/api/local-ip')
-      .then((r) => r.json())
-      .then(({ ip }) => {
-        const url = `http://${ip}:3000`
-        setBaseUrl(url)
-      })
-      .catch(() => setBaseUrl(window.location.origin))
+    // Discard any stored local-IP values (169.254.x.x or 192.168.x.x with port 3000)
+    const isStaleLocalUrl = stored && /^http:\/\/(169\.|192\.168\.|10\.|172\.).*:3000/.test(stored)
+    if (stored && !isStaleLocalUrl) {
+      setBaseUrl(stored)
+    } else {
+      if (isStaleLocalUrl) localStorage.removeItem('qr_base_url')
+      setBaseUrl(window.location.origin)
+    }
   }, [])
 
   const checkinUrl = baseUrl ? `${baseUrl}/checkin?event=${eventId}` : ''
@@ -152,7 +150,7 @@ export function QRCodePanel({ eventId, eventName }: QRCodePanelProps) {
 
           <p className="text-zinc-600 text-xs leading-relaxed">
             {tab === 'checkin'
-              ? 'Attendees scan with their phone to check in. Both phone and kiosk must be on the same WiFi network.'
+              ? 'Attendees scan with their phone to check in. Works on any network — no shared WiFi required.'
               : 'Open this URL in Chrome on the LED display PC. Each event has a separate display.'}
           </p>
         </div>
